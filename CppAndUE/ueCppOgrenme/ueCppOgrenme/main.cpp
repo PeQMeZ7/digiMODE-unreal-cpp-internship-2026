@@ -6,9 +6,28 @@
 //
 
 #include <iostream>
+using namespace std;
+
+
+class Animal {
+public:
+    virtual void MakeSound() const;   // const VAR
+};
+
+class Dog : Animal
+{
+public:
+    virtual void MakeSound() override
+    
+    
+    
+}
 
 int main(int argc, const char * argv[]) {
     // insert code here...
-    std::cout << "Hello, World!\n";
-    return EXIT_SUCCESS;
+    cout << "Hello" << endl;
+    return 0;
+    
+    
 }
+
