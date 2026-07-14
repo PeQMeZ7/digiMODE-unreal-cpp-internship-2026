@@ -45,8 +45,11 @@ int main()
 
     d.MakeSound();
 
-
     Dog::MakeSound2();
+
+    unique_ptr<Dog> hayvan2 = make_unique<Dog>("Golden");
+
+    hayvan2->MakeSound();
 
     return 0;
 }
