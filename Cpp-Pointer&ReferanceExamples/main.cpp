@@ -6,7 +6,10 @@ class Kitap
 {
 public:
     string ad;
-    Kitap(string a) : ad(a) {}
+
+    Kitap(string a) : ad(a)
+    {
+    }
 };
 
 void yazdir(const Kitap& k)
@@ -34,9 +37,43 @@ void degistirWithPointer(int* a, int* b)
 }
 
 int dizi[5] = {10, 20, 30, 40, 50};
+
 int& eleman(int i)
 {
     return dizi[i];
+}
+
+//Deneme
+void ucKatla(int& x)
+{
+    x *= 3;
+}
+
+void ucKatlaPtr(int* x)
+{
+    *x *= 3;
+}
+
+class Ogrenci
+{
+    string ogrenciAd;
+    int ogrenciNot;
+    public:
+    Ogrenci(string a, int x) : ogrenciAd(a), ogrenciNot(x){}
+
+    string getOgrenciad() const
+    {
+        return ogrenciAd;
+    }
+    int getOgrencinot() const
+    {
+        return ogrenciNot;
+    }
+};
+
+void bilgiYazdir(const Ogrenci& o)
+{
+    cout << "Öğrenci Adı: " << o.getOgrenciad() << " Öğrenci Notu: " << o.getOgrencinot() << endl;
 }
 
 int main()
@@ -85,14 +122,23 @@ int main()
 
     degistirWithPointer(&swap3, &swap4);
 
-    cout << eleman(2)<< endl;
+    cout << eleman(2) << endl;
     eleman(2) = 99;
-    cout << eleman(2)<< endl;
+    cout << eleman(2) << endl;
 
     Kitap kitap("Suç ve Ceza");
     yazdir(kitap);
 
+    int deneme1 = 4;
+    ucKatla(deneme1);
+    cout << deneme1 << endl;
 
+    int deneme2 = 5;
+    ucKatlaPtr(&deneme2);
+    cout << deneme2 << endl;
+
+    Ogrenci ogrenci1("Recep",60);
+    bilgiYazdir(ogrenci1);
 
 
 
