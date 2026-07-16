@@ -58,13 +58,17 @@ class Ogrenci
 {
     string ogrenciAd;
     int ogrenciNot;
-    public:
-    Ogrenci(string a, int x) : ogrenciAd(a), ogrenciNot(x){}
+
+public:
+    Ogrenci(string a, int x) : ogrenciAd(a), ogrenciNot(x)
+    {
+    }
 
     string getOgrenciad() const
     {
         return ogrenciAd;
     }
+
     int getOgrencinot() const
     {
         return ogrenciNot;
@@ -75,6 +79,67 @@ void bilgiYazdir(const Ogrenci& o)
 {
     cout << "Öğrenci Adı: " << o.getOgrenciad() << " Öğrenci Notu: " << o.getOgrencinot() << endl;
 }
+
+//Pointer ile erişimler
+
+class Dog
+{
+public:
+    string ad;
+    void havla() { cout << ad << ": Hav" << endl; }
+
+    void setAd(string ad)
+    {
+        this->ad = ad;
+    }
+
+    Dog* kendisi()
+    {
+        return this;
+    }
+};
+
+class Motor
+{
+public:
+    void calis()
+    {
+        cout << "Vroom" << endl;
+    }
+};
+
+class Araba
+{
+    Motor* motor;
+
+public:
+    Araba(Motor* m) : motor(m)
+    {
+    }
+
+    void surus()
+    {
+        motor->calis();
+    }
+};
+
+class Hesap
+{
+    int bakiye = 0;
+
+public:
+    Hesap* yatir(int m)
+    {
+        bakiye += m;
+        return this;
+    }
+    Hesap* cek(int m)
+    {
+        bakiye -= m;
+        return this;
+    }
+    void goster(){cout << bakiye << endl;}
+};
 
 int main()
 
@@ -137,10 +202,36 @@ int main()
     ucKatlaPtr(&deneme2);
     cout << deneme2 << endl;
 
-    Ogrenci ogrenci1("Recep",60);
+    Ogrenci ogrenci1("Recep", 60);
     bilgiYazdir(ogrenci1);
 
 
+    //Pointer ile erişimler
+    cout << "---------------------" << endl;
+    cout << "Pointer ile erişimler" << endl;
+    cout << endl;
+
+
+    Dog d;
+    d.ad = "Karabaş";
+    d.havla();
+
+    Dog* dogPointer = &d;
+    dogPointer->ad = "Garip Kont";
+    dogPointer->havla();
+
+    Motor m;
+    Araba a(&m);
+    a.surus();
+
+    dogPointer->setAd("ScoobyDoo");
+    dogPointer->havla();
+    cout << dogPointer->kendisi() << endl;
+
+    cout << endl;
+
+    Hesap hesapDeneme;
+    hesapDeneme.yatir(100)->cek(30)->yatir(50)->goster(); //120
 
 
     return 0;
