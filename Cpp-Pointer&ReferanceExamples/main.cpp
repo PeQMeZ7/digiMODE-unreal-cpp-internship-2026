@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <memory>
 using namespace std;
 
 class Kitap
@@ -133,13 +134,45 @@ public:
         bakiye += m;
         return this;
     }
+
     Hesap* cek(int m)
     {
         bakiye -= m;
         return this;
     }
-    void goster(){cout << bakiye << endl;}
+
+    void goster() { cout << bakiye << endl; }
 };
+
+
+
+//Polimorfizm + pointer
+
+class Hayvan
+{
+public:
+    virtual void sesCikar() { cout << "Ses" << endl; }
+
+    virtual ~Hayvan()
+    {
+    }
+};
+
+class Kopek : public Hayvan
+{
+    public:
+    void sesCikar() override { cout << "Hav" << endl; }
+};
+
+class Car
+{
+    unique_ptr<Motor> motor;    // Araba motoru sahiplenir, otomatik siler
+public:
+    Car(): motor(make_unique<Motor>()){}
+    void surus() { motor->calis(); }
+
+};
+
 
 int main()
 
@@ -233,6 +266,11 @@ int main()
     Hesap hesapDeneme;
     hesapDeneme.yatir(100)->cek(30)->yatir(50)->goster(); //120
 
+    //Polimorfizm + pointer
+
+    Hayvan* h = new Kopek(); // base pointer, türetilmiş nesne
+    h->sesCikar();
+    delete h;
 
     return 0;
 }
