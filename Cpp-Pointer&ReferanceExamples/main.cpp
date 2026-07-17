@@ -272,5 +272,25 @@ int main()
     h->sesCikar();
     delete h;
 
+    //Pointer's Pointer
+
+    cout << endl;
+    cout << "------------------" << endl;
+
+    int integer = 10;
+    int* integerPointer = &integer;
+    int** pointerPointer = &integerPointer;
+
+    cout << integer << endl;
+    cout << *integerPointer << endl;
+    cout << **pointerPointer << endl;
+
+    **pointerPointer = 5;
+    cout << integer << endl;
+    *integerPointer = 9;
+    cout << integer << endl;
+
+
+
     return 0;
 }
