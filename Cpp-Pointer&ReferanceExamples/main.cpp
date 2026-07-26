@@ -145,7 +145,6 @@ public:
 };
 
 
-
 //Polimorfizm + pointer
 
 class Hayvan
@@ -160,18 +159,47 @@ public:
 
 class Kopek : public Hayvan
 {
-    public:
+public:
     void sesCikar() override { cout << "Hav" << endl; }
 };
 
 class Car
 {
-    unique_ptr<Motor> motor;    // Araba motoru sahiplenir, otomatik siler
+    unique_ptr<Motor> motor; // Araba motoru sahiplenir, otomatik siler
 public:
-    Car(): motor(make_unique<Motor>()){}
-    void surus() { motor->calis(); }
+    Car() : motor(make_unique<Motor>())
+    {
+    }
 
+    void surus() { motor->calis(); }
 };
+
+class Obje
+{
+    //deneme
+};
+
+void GuvenliSil(Obje*& p)
+{
+    delete p;
+    p = nullptr; // dışarıdaki pointer da nullptr olur
+}
+
+void Takas(Obje*& a, Obje*& b)
+{
+    Obje* temp = a;
+    a = b;
+    b = temp;
+}
+
+void Yol1(Obje*& p) // referans
+{
+    p = new Obje();
+}
+void Yol2(Obje** p)
+{
+    *p = new Obje(); // pointer'a pointer
+}
 
 
 int main()
@@ -290,6 +318,18 @@ int main()
     *integerPointer = 9;
     cout << integer << endl;
 
+    Obje* ptr = new Obje();
+
+    GuvenliSil(ptr);
+    //Neden & şart? Obje* olsaydı delete çalışırdı ama dışarıdaki ptr silinmiş adresi göstermeye devam ederdi (dangling pointer). Kritik hata kaynağı.
+
+    Obje* p1 = new Obje(); // A evi
+    Obje* p2 = new Obje(); // B evi
+    Takas(p1, p2); // p1 → B evi, p2 → A evi
+
+    Obje* pointer = nullptr;
+    Yol1(pointer);   // sade
+    Yol2(&pointer);     // & vermek + içeride * açmak gerekiyor
 
 
     return 0;
