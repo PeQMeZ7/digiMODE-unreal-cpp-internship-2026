@@ -11,7 +11,7 @@ public:
 };
 
 
-// ---- 1. YAYINCI (Publisher) ----
+// ---- YAYINCI (Publisher) ----
 
 class Event
 {
@@ -37,11 +37,49 @@ public:
     }
 };
 
-// ---- 2. YAYIN YAPAN SINIF ----
+// ---- DINLEYICILER ----
 
+class UI : public IHealthListener
+{
+public:
+    void OnHealthChanged(int hp) override
+    {
+        cout << "[UI] " << hp << endl;
+    }
+};
+
+class SoundSystem : public IHealthListener
+{
+public:
+    void OnHealthChanged(int hp) override
+    {
+        cout << "[Ses] Ah! " << hp << endl;
+    }
+};
+
+class Player
+{
+public:
+    Event OnHealthChanged;
+    int health = 100;
+
+    void TakeDamage(int d)
+    {
+        health -= d;
+        OnHealthChanged.Broadcast(health);
+    }
+};
 
 
 int main()
 {
+    Player p;
+    UI ui;
+    SoundSystem sound;
+
+    p.OnHealthChanged.AddListener(&ui);
+    p.OnHealthChanged.AddListener(&sound);
+    p.TakeDamage(30);
+
     return 0;
 }
