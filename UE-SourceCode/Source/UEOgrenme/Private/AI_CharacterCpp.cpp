@@ -56,11 +56,10 @@ void AAI_CharacterCpp::BeginPlay()
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Green,TEXT("Çalışmıyor"));
 	}
-	
+
 	// Broadcast'i hemen yapma. 1 saniye bekle ki BP tarafındaki
 	// bind (dinleyici bağlama) tamamlanmış olsun. Sonra tetikle.
 	GetWorldTimerManager().SetTimer(GecikmeTimer, this, &AAI_CharacterCpp::GecikmeliTetikle, 1.f, false);
-	
 }
 
 // Called every frame
@@ -72,18 +71,23 @@ void AAI_CharacterCpp::Tick(float DeltaTime)
 void AAI_CharacterCpp::HareketBitti(FAIRequestID RequestID, EPathFollowingResult::Type Result)
 {
 	GEngine->AddOnScreenDebugMessage(1019, 10.f, FColor::White,TEXT("HAREKET BİTTİ, BİR SONRAKİ HAREKETE GEÇİLİYOR!"));
-	
+
 	GetWorldTimerManager().SetTimer(TimerHandle, this, &AAI_CharacterCpp::YeniHareket, 2.f);
 }
 
 void AAI_CharacterCpp::YeniHareket()
 {
-	NavSys->GetRandomReachablePointInRadius(GetActorLocation(), 2000.f, NavLocation);
-	if (AIC_Ref && NavSys)
+	// Önce güvenlik kontrolü, sonra kullanım
+	if (!IsValid(NavSys) || !IsValid(AIC_Ref))
 	{
-		AIC_Ref->ReceiveMoveCompleted.AddDynamic(this, &AAI_CharacterCpp::HareketBitti);
-		AIC_Ref->MoveToLocation(NavLocation.Location);
+		return;
 	}
+
+
+	NavSys->GetRandomReachablePointInRadius(GetActorLocation(), 2000.f, NavLocation);
+
+	// AddDynamic YOK — BeginPlay'deki bağlantı hâlâ geçerli
+	AIC_Ref->MoveToLocation(NavLocation.Location);
 }
 
 void AAI_CharacterCpp::GecikmeliTetikle()
@@ -98,14 +102,13 @@ void AAI_CharacterCpp::GecikmeliTetikle()
 void AAI_CharacterCpp::SaniyeGecti()
 {
 	Zaman--;
-	
+
 	OrnekDelegate2.Broadcast(Zaman);
-	
-	 // Süre bittiyse timer'ı durdur — yoksa eksiye doğru sonsuza kadar sayar
-        if (Zaman <= 0)
-        {
-            GetWorldTimerManager().ClearTimer(GecikmeTimer);
-            GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Sure bitti!"));
-        }
-	
+
+	// Süre bittiyse timer'ı durdur — yoksa eksiye doğru sonsuza kadar sayar
+	if (Zaman <= 0)
+	{
+		GetWorldTimerManager().ClearTimer(GecikmeTimer);
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Sure bitti!"));
+	}
 }

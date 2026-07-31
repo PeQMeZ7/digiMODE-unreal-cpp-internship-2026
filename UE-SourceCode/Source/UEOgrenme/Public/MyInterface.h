@@ -13,9 +13,7 @@ class UMyInterface : public UInterface
 	GENERATED_BODY()
 };
 
-/**
- * 
- */
+
 class UEOGRENME_API IMyInterface
 {
 	GENERATED_BODY()

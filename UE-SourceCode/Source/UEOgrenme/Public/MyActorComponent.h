@@ -14,7 +14,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOrnekDelegate); //80. Satır CPP de BeginPla
 // YANLIŞ: int Saniye  (tek argüman gibi, virgül yok, int yasak)
 // DOĞRU:
 //TODO DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOrnekDelegate2, int32, Saniye);
-//                                                          tip ↑    ↑ isim
+//                                                                 tip ↑    ↑ isim
 
 UCLASS(Blueprintable, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class UEOGRENME_API UMyActorComponent : public UActorComponent, public IMyInterface
@@ -71,6 +71,9 @@ public:
 
 	FTimerHandle TH_TimerHandle;
 
+	
+	
+	//TODO
 	//! TSubclassOf<AActor> = "AActor'den türeyen bir SINIF" tutar — nesnenin kendisini değil, kalıbını.
 	// AActor* olsaydı sahnedeki mevcut bir nesneyi işaret ederdi; bu ise "hangi tipten üreteceğim" bilgisidir.
 	// Editörde açılır liste olarak çıkar ve sadece AActor türevlerini gösterir — yanlış tip seçemezsin.

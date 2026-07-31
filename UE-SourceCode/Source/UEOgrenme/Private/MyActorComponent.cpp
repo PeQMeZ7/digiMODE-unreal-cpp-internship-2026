@@ -64,14 +64,12 @@ void UMyActorComponent::BeginPlay()
 	// FRotator(0)   : hangi açıyla duracağı — 0 = dönüş yok
 	// SpawnParams   : yukarıda hazırladığımız ayarlar
 	GetWorld()->SpawnActor<AActor>(SpawnClass, SpawnLocation, FRotator(0), SpawnParams);
-	
+
 	// 1. Dinleyiciyi bağla (bir kez)
 	OrnekDelegate.AddDynamic(this, &UMyActorComponent::OlayGeldi);
 
 	// 2. Test için hemen tetikle
-	OrnekDelegate.Broadcast();   // → OlayGeldi() çalışır → ekrana yazı
-	
-	
+	OrnekDelegate.Broadcast(); // → OlayGeldi() çalışır → ekrana yazı
 }
 
 
@@ -117,6 +115,7 @@ void UMyActorComponent::TraceLine()
 		// 	DenemeActor->OzelDegiskenim = 5;
 		// }
 
+		//? Collusion
 		if (DenemeActor)
 		{
 			GEngine->AddOnScreenDebugMessage(11, 10.f, FColor::Orange,
@@ -193,5 +192,4 @@ void UMyActorComponent::TetiklenecekFonksiyon()
 void UMyActorComponent::OlayGeldi()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Green,TEXT("Delegate Çalıştı!"));
-	
 }
