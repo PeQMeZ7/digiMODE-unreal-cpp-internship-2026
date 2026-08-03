@@ -1,17 +1,18 @@
 #include <iostream>
+#include <memory>
+
+class Player
+{
+public:
+    int Health = 100;
+};
 
 int main()
 {
+    auto player = std::make_unique<Player>();
 
-    const auto lang = "C++";
-    std::cout << "Hello and welcome to " << lang << "!\n";
-
-    for (int i = 1; i <= 5; i++)
-    {
-
-        std::cout << "i = " << i << std::endl;
-    }
+    std::cout << player->Health << std::endl;
 
     return 0;
-
 }
+

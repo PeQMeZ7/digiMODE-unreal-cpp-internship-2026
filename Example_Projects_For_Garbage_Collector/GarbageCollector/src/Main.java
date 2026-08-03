@@ -1,14 +1,15 @@
+class Player {
+    int health = 100;
+}
 
 public class Main {
-
     public static void main(String[] args) {
 
+        Player player = new Player();
 
-        System.out.printf("Hello and welcome!");
+        System.out.println(player.health);
 
-        for (int i = 1; i <= 5; i++) {
-
-            System.out.println("i = " + i);
-        }
+        player = null;
     }
 }
+
