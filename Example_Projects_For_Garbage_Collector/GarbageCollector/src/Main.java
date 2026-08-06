@@ -8,8 +8,9 @@ public class Main {
         Player player = new Player();
 
         System.out.println(player.health);
-
+        System.out.println();
         player = null;
+        {{{{{}}}}}{}{}
     }
 }
 
