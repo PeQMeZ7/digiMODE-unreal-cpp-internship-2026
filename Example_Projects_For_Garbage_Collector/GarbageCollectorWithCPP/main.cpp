@@ -1,23 +1,15 @@
 #include <iostream>
 #include <memory>
 
-class Player
+struct Point
 {
-public:
-    int Health = 100;
+    int x,y;
 };
 
 int main()
 {
-    auto player = std::make_unique<Player>();
+    Point p;
 
-    std::cout << player->Health << std::endl;
-{{{{{{{{{{{{{{{
-    {
+    Point p = 
 
-
-
-
-    }}}}}}}}}}}}}}}}
-    return 0;
 }
