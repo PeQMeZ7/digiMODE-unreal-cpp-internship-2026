@@ -1,0 +1,19 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "Matematik Araclari",
+	"Description": "Blueprint matematik fonksiyonlari",
+	"Category": "Other",
+	"CreatedBy": "Recep",
+	"EnabledByDefault": true,
+	"CanContainContent": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "MatematikAraclari",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}
